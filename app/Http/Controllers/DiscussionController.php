@@ -3,9 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\CreateDiscussionRequest;
 
 class DiscussionController extends Controller
 {
+    
+    public function __construct(){
+        $this->middleware('auth')->only(['create', 'store'])
+    }
+
     /**
      * Display a listing of the resource.
      *
