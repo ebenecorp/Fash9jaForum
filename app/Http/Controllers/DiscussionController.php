@@ -52,6 +52,7 @@ class DiscussionController extends Controller
             'channel_id'=>$request->channel
         ]);
 
+        session()->flash('success', 'Gist has been successfully Posted');
         return redirect()->route('discussion.index');
     }
 
