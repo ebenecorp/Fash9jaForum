@@ -9,7 +9,7 @@ class DiscussionController extends Controller
 {
     
     public function __construct(){
-        $this->middleware('auth')->only(['create', 'store'])
+        $this->middleware('auth')->only(['create', 'store']);
     }
 
     /**
@@ -20,6 +20,9 @@ class DiscussionController extends Controller
     public function index()
     {
         //
+        return view('discussion.index', [
+            'discussions' => Discussion::paginate(10)
+        ]);
     }
 
     /**
@@ -39,9 +42,17 @@ class DiscussionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateDiscussionRequest $request)
     {
         //
+
+        auth()->user()->discussions()->create([
+            'title'=>$request->title,
+            'content'=>$request->content,
+            'channel_id'=>$request->channel
+        ]);
+
+        return redirect()->route('discussion.index');
     }
 
     /**
