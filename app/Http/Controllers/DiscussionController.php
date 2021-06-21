@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Discusion;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateDiscussionRequest;
 
@@ -21,7 +23,7 @@ class DiscussionController extends Controller
     {
         //
         return view('discussion.index', [
-            'discussions' => Discussion::paginate(10)
+            'discussions' => Discusion::paginate(10)
         ]);
     }
 
@@ -49,6 +51,7 @@ class DiscussionController extends Controller
         auth()->user()->discussions()->create([
             'title'=>$request->title,
             'content'=>$request->content,
+            'slug'=> Str::slug($request->title),
             'channel_id'=>$request->channel
         ]);
 
