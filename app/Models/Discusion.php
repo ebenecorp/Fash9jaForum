@@ -12,4 +12,8 @@ class Discusion extends BaseModel
         
         return $this->belongsTo(User::class, 'user_id' );
     }
+
+    public function getRouteKeyName(){
+        return 'slug';
+    }
 }

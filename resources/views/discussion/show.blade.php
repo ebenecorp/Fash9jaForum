@@ -2,13 +2,12 @@
 
 @section('content')
         
-            @foreach ($discussions as $discussion)
                 <div class="card">
                     <div class="card-header">
                         <div class="d-flex justify-content-between">
                             <div>
                                     <img width="20px" height="20px" style="border-radius: 50%" src="{{ Gravatar::src($discussion->author->email)}}" alt="">
-                                    <strong class="ml-2">{{$discussion->author->name}}</strong>
+                                    <strong class="ml-2">{{$discussion->author->name}}</strong> posted: {{$discussion->created_at}}
                             </div>
 
                             <div>
@@ -20,11 +19,13 @@
                 
 
                     <div class="card-body">
-                        {!! $discussion->title !!}
+                        {{$discussion->title}}
+
+                        <hr>
+                        
+                        {!! $discussion->content !!}
                     </div>
                 </div>
                 
-            @endforeach
 
-            {{$discussions->links()}}
 @endsection
