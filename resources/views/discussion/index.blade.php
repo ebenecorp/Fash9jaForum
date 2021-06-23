@@ -7,11 +7,16 @@
                     @include('partials.header-card')                
 
                     <div class="card-body">
-                        {!! $discussion->title !!}
+                        <span class="text-center">
+
+                            <strong>
+                                {{ $discussion->title }}
+            
+                            </strong>
+                        </span>
                     </div>
                 </div>
                 
             @endforeach
-
             {{$discussions->links()}}
 @endsection
