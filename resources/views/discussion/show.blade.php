@@ -14,6 +14,28 @@
                         {!! $discussion->content !!}
                     </div>
                 </div>
+                @foreach ($discussion->replies()->paginate(3) as $reply )
+                    
+                    <div class="card my-2">
+                        <div class="card-header">
+
+                            <div class="d-flex justify-content-between">
+
+                                <div>
+                                    <img width="20px" height="20px" style="border-radius: 50%" src="{{ Gravatar::src($reply->user->email)}}" alt="">
+                                    <strong class="ml-2">{{$reply->user->name}}</strong> replied: {{$reply->created_at}}
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="card-body">
+                                {!! $reply->content !!}
+                        </div>
+                    </div>
+                @endforeach
+                    {{ $discussion->replies()->paginate(3)->links() }}
 
                 <div class="card my-2">
                     <div class="card-header">
@@ -21,10 +43,10 @@
                     </div>
                     @auth
                         <div class="card-body">
-                            <form action="#" method="post">
+                            <form action="{{ route('replies.store', $discussion->slug)}}" method="post">
                                 @csrf
-                                <input id="reply" type="hidden" name="reply">
-                                <trix-editor input="reply"></trix-editor>
+                                <input id="content" type="hidden" name="content">
+                                <trix-editor input="content"></trix-editor>
 
                                 <button  class="btn btn-success btn-sm my-2" type="submit">Save reply</button>
                             </form>
