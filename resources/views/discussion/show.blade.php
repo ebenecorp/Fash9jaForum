@@ -33,9 +33,15 @@
                         <div class="card-body">
                                 {!! $reply->content !!}
                         </div>
+
+                        <div class="">
+                            <button type="submit"><i class="bi bi-hand-thumbs-up"></i> </button>
+                        </div>
+                    
                     </div>
                 @endforeach
-                    {{ $discussion->replies()->paginate(3)->links() }}
+                 {{ $discussion->replies()->paginate(3)->links() }}
+
 
                 <div class="card my-2">
                     <div class="card-header">
@@ -58,9 +64,13 @@
                             <a href="{{route('login')}}" class="btn btn-info btn-sm">Sign in to add a reply</a>
                         </div>
 
+                        
+
                     @endauth
+
+
                 </div>
-                
+
 
 @endsection
 

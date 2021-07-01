@@ -12,8 +12,8 @@
         "laravel/framework": "^8.40",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
-        "thomaswelton/laravel-gravatar": "~1.0"
-
+        "thomaswelton/laravel-gravatar": "~1.0",
+        "twbs/bootstrap": "5.0.2"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
