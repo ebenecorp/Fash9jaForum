@@ -18,6 +18,7 @@ class CreateRepliesTable extends Migration
             $table->integer('user_id');
             $table->integer('discussion_id');
             $table->text('content');
+            $table->integer('like')->default(0);
             $table->timestamps();
         });
     }

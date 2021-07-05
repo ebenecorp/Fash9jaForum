@@ -20,4 +20,14 @@ class Discusion extends BaseModel
     public function replies(){
         return $this->hasMany(Reply::class , 'discussion_id');
     }
+
+    public function bestReply(){
+        return $this->belongsTo(Reply::class, 'reply_id');
+    }
+
+    public function markBestReply(Reply $reply){
+        $this->update([
+                'reply_id' => $reply->id
+        ]);
+    }
 }

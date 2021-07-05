@@ -30,3 +30,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('discussion', DiscussionController::class);
 
 Route::resource('discussion/{discussion}/replies', RepliesController::class);
+
+Route::post('discussion/{discussion}/replies/{reply}/mark-as-bast-reply', [DiscussionController::class, 'bestReply'])->name('discussion.bestReply');

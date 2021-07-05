@@ -17,6 +17,7 @@ class CreateChannelsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
+            $table->integer('reply_id')->nullable();
             $table->text('description');
             $table->timestamps();
         });

@@ -93,4 +93,8 @@ class RepliesController extends Controller
     {
         //
     }
+
+    public function like(){
+        
+    }
 }

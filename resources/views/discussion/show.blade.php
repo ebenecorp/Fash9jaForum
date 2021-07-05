@@ -12,6 +12,19 @@
                         <hr>
 
                         {!! $discussion->content !!}
+
+                        @if ($discussion->bestReply)
+                            <div class="card bg-success m-y-5" style="color: #fff">
+                                <div class="card-header">
+                                    Best Reply
+                                </div>
+
+                                <div class="card-body">
+                                    {!! $discussion->bestReply->content!!}
+                                </div>
+                             </div>
+                            
+                        @endif
                     </div>
                 </div>
                 @foreach ($discussion->replies()->paginate(3) as $reply )
@@ -23,9 +36,21 @@
 
                                 <div>
                                     <img width="20px" height="20px" style="border-radius: 50%" src="{{ Gravatar::src($reply->user->email)}}" alt="">
-                                    <strong class="ml-2">{{$reply->user->name}}</strong> replied: {{$reply->created_at}}
-                                </div>
+                                    <strong class="ml-2">{{$reply->user->name}}</strong> replied: {{$reply->created_at}} <i class="bi bi-hand-thumbs-up"></i>                                </div>
 
+                                <div>
+                                    @auth
+                                        @if ( auth()->user()->id === $discussion->user_id)
+                                            <form action="{{ route('discussion.bestReply', [ 'discussion' =>$discussion->slug, 'reply'=> $reply->id])}}" method="POST">
+                                                @csrf
+                                                <button class="btn btn-primary btn-sm float-right"  type="submit">Mark as best reply</button>
+
+                                            </form>
+                                        @endif
+                                    @endauth
+                                    
+                                </div>
+                                    
                             </div>
 
                         </div>
@@ -34,9 +59,7 @@
                                 {!! $reply->content !!}
                         </div>
 
-                        <div class="">
-                            <button type="submit"><i class="bi bi-hand-thumbs-up"></i> </button>
-                        </div>
+                        
                     
                     </div>
                 @endforeach
@@ -78,10 +101,13 @@
 @section('css')
 
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.min.css">
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
      
 @endsection
 
 @section('script')
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix-core.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.min.js"></script>
 
