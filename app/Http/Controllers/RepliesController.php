@@ -6,6 +6,7 @@ use App\Models\Discusion;
 use App\Models\Reply;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateReplyRequest;
+use App\Notifications\NewReplyAdded;
 
 class RepliesController extends Controller
 {
@@ -43,7 +44,11 @@ class RepliesController extends Controller
             'content' => $request->content
         ]);
 
+        $discussion->author->notify(new NewReplyAdded($discussion));
+
         session()->flash('message', 'Reply successfully added');
+
+        
 
         return redirect()->back();
         //
@@ -95,6 +100,6 @@ class RepliesController extends Controller
     }
 
     public function like(){
-        
+
     }
 }
