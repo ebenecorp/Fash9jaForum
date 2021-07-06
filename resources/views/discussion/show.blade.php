@@ -16,13 +16,22 @@
                         @if ($discussion->bestReply)
                             <div class="card bg-success m-y-5" style="color: #fff">
                                 <div class="card-header">
-                                    Best Reply
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                             <img width="20px" height="20px" style="border-radius: 50%" src="{{ Gravatar::src($discussion->bestReply->user->email)}}" alt="">
+                                             <strong class="ml-2">{{$discussion->bestReply->user->name}}</strong> replied: {{$discussion->bestReply->user->created_at}}                               
+                                            
+                                        </div>
+                                        <div class="">
+                                             Best Reply
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="card-body">
                                     {!! $discussion->bestReply->content!!}
                                 </div>
-                             </div>
+                            </div>
                             
                         @endif
                     </div>
@@ -36,7 +45,8 @@
 
                                 <div>
                                     <img width="20px" height="20px" style="border-radius: 50%" src="{{ Gravatar::src($reply->user->email)}}" alt="">
-                                    <strong class="ml-2">{{$reply->user->name}}</strong> replied: {{$reply->created_at}} <i class="bi bi-hand-thumbs-up"></i>                                </div>
+                                    <strong class="ml-2">{{$reply->user->name}}</strong> replied: {{$reply->created_at}} 
+                                </div>
 
                                 <div>
                                     @auth
