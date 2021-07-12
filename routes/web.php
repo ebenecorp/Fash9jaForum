@@ -34,4 +34,4 @@ Route::resource('discussion/{discussion}/replies', RepliesController::class);
 
 Route::post('discussion/{discussion}/replies/{reply}/mark-as-bast-reply', [DiscussionController::class, 'bestReply'])->name('discussion.bestReply');
 
-Route::get('user/notification', [UserController::class, 'notifications']);
+Route::get('user/notification', [UserController::class, 'notifications'])->name('user.notifications');
