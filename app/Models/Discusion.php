@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Notifications\ReplyMarkAsBestReply;
 
 class Discusion extends BaseModel
 {
@@ -29,5 +30,7 @@ class Discusion extends BaseModel
         $this->update([
                 'reply_id' => $reply->id
         ]);
+
+        $reply->user->notify(new ReplyMarkAsBestReply($reply->discussion));
     }
 }
