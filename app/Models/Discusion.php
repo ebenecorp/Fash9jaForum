@@ -18,6 +18,18 @@ class Discusion extends BaseModel
         return 'slug';
     }
 
+    public function scopeFilterByChannels($builder){
+        if(request()->query('channel')){
+            $channel = Channel::where('slug', request()->query('channel'))->first();
+
+            if($channel){
+                return $builder->where('channel_id', $channel->id);
+            }
+        }
+
+        return $builder;
+    }
+
     public function replies(){
         return $this->hasMany(Reply::class , 'discussion_id');
     }
@@ -30,6 +42,10 @@ class Discusion extends BaseModel
         $this->update([
                 'reply_id' => $reply->id
         ]);
+
+        if($reply->user->id === $this->author->id){
+            return;
+        }
 
         $reply->user->notify(new ReplyMarkAsBestReply($reply->discussion));
     }
